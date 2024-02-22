@@ -67,6 +67,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>employee-department-docker-app</finalName>
     </build>
 
 </project>

@@ -1,2 +1,8 @@
 server:
   port: 8585
+spring:
+  data:
+    mongodb:
+      database: Department
+      host: ec-mongodb-poc
+      port: 27017

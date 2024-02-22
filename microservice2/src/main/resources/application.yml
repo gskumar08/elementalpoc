@@ -1,2 +1,8 @@
 server:
   port: 9090
+spring:
+  data:
+    mongodb:
+      database: Employee
+      host: ec-mongodb-poc
+      port: 27017

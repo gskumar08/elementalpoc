@@ -1,0 +1,47 @@
+version: "3"
+services:
+  ec-mongodb-poc:
+    image: mongo:latest
+    container_name: "ec-mongodb-poc"
+    ports:
+      - 27017:27017
+    networks:
+      - sample_network
+  employee-docker-app:
+    image: employee-docker-app:1.0
+    container_name: "employee-docker-app"
+    ports:
+      - 9090:9090
+    networks:
+      - sample_network
+    depends_on:
+      - ec-mongodb-poc
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://ec-mongodb-poc:27017" ]
+      interval: 20s
+      timeout: 20s
+      retries: 5
+  department-docker-app:
+    image: department-docker-app:1.0
+    container_name: "department-docker-app"
+    ports:
+      - 8585:8585
+    networks:
+      - sample_network
+    depends_on:
+      - ec-mongodb-poc
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://ec-mongodb-poc:27017" ]
+      interval: 20s
+      timeout: 20s
+      retries: 5
+  employee-department-docker-app:
+    image: employee-department-docker-app:1.0
+    container_name: "employee-department-docker-app"
+    ports:
+      - 8080:8080
+    networks:
+      - sample_network
+networks:
+  sample_network:
+    driver: bridge

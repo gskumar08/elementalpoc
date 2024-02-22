@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.microservice1.feignClient.DeptFeignClient;
 import org.example.microservice1.feignClient.UserFeignClient;
 import org.example.microservice1.pojo.Department;
+import org.example.microservice1.pojo.Employee;
 import org.example.microservice1.pojo.Gender;
 import org.example.microservice1.pojo.User;
 import org.example.microservice1.service.M1Service;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -70,4 +72,13 @@ public class M1ServiceImpl implements M1Service {
         return new Department(0,"DummyDept",0);
     }
 
+    @Override
+    public List<Employee> getAllEmps() {
+        return userFeignClient.getEmployees();
+    }
+
+    @Override
+    public List<Department> getAllDepts() {
+        return deptFeignClient.getDepts();
+    }
 }
