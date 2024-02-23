@@ -39,8 +39,8 @@ public class M1ServiceImpl implements M1Service {
     private int UserServiceAttempt =1;
     private int DeptServiceAttempt =1;
 
-    public static final String USER_BASE_URL = "http://localhost:9090/m2/user";
-    public static final String DEPT_BASE_URL = "http://localhost:8585/m3/dept";
+    public static final String USER_BASE_URL = "http://EMPLOYEE-SERVICE/m2/user";
+    public static final String DEPT_BASE_URL = "http://DEPARTMENT-SERVICE/m3/dept";
 
     @Override
     @CircuitBreaker(name= USER_SERVICE, fallbackMethod = "getDummyUser")
@@ -48,7 +48,7 @@ public class M1ServiceImpl implements M1Service {
     public User getUserdetails(){
         System.out.println("getUserdetails retry method called "+UserServiceAttempt++ +" times on "+ new Date());
         //Using Rest Template
-        // User user = restTemplate.getForObject(USER_BASE_URL,User.class);
+        //User user = restTemplate.getForObject(USER_BASE_URL,User.class);
         User user = userFeignClient.getUser();
         return user;
     }
@@ -62,7 +62,7 @@ public class M1ServiceImpl implements M1Service {
     public Department getDeptdetails() {
             System.out.println("getDeptdetails retry method called "+DeptServiceAttempt++ +" times on "+ new Date());
             // using Rest template
-            // Department dept = restTemplate.getForObject(DEPT_BASE_URL, Department.class);
+             //Department dept = restTemplate.getForObject(DEPT_BASE_URL, Department.class);
             // Using Feign Client
             Department dept =  deptFeignClient.getDept();
             return dept;
